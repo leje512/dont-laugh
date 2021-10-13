@@ -1,0 +1,315 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Dont-laugh-Challenge</title>
+      <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+      <link rel="preconnect" href="https://fonts.gstatic.com">
+      <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap" rel="stylesheet">
+      <style> body {padding: 0; margin: 0;} </style>
+      <script src="libraries/face-api.min.js"></script>
+      <script src="libraries/p5.min.js"></script> 
+      <script src="sketch.js"></script>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+          margin: 0px;
+          padding: 0px;
+          font-size: 20pt;
+          font-family: 'Dela Gothic One', cursive;
+          background-color: #3D3D3D;
+          color: greenyellow;
+          overflow: hidden;
+          box-sizing:border-box;
+        }
+      .main {
+        box-sizing:border-box;
+      }
+
+
+      .row {
+          display: flex;
+          flex-wrap: wrap;
+          height: 100%;
+          align-items: center;
+      }
+      .start {
+        display: flex;
+        justify-content: center;
+        max-width: 100%;
+        clear: both;
+        /*margin: 10px;*/
+      }
+      #points {
+        text-align: center;
+      }
+
+      .embed-responsive {
+          position: relative;
+          display: block;
+          width: 100%;
+          padding: 0;
+          overflow: hidden;
+      }
+
+      .embed-responsive::before {
+          display: block;
+          content: "";
+      }
+
+      .embed-responsive-16by9::before {
+          padding-top: 56.25%;
+      }
+
+      .embed-responsive .embed-responsive-item {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          border: 0;
+      }
+
+      input {
+        font-size: 14pt;
+        background-color: greenyellow;
+        color: #3D3D3D;
+        padding: 5px;
+        font-family: 'Dela Gothic One', cursive;
+        font-weight: 300;
+        display: block;
+        width: 100%;
+        margin-right: 10px;
+        margin-bottom: 20px;
+      }
+      input:last-child {
+        margin-right: 0px;
+      } 
+      .button_row {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      @media(min-width: 768px) {
+        .canvas-window {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          background-color: black;
+          z-index: 10;
+        }
+        .middle {
+          max-width: 60%;
+          flex: 0 0 60%;
+          margin: 0 auto;
+          z-index: 1;
+          max-height: 100%;
+        }
+        .middlecol {
+          display: flex;
+          flex-wrap: wrap;
+          height: 80%;
+          align-items: center;
+        }
+        .col1 {
+          max-width: 10%;
+          flex: 0 0 10%;
+          margin: 0 1.25%;
+        }
+        .col2 {
+          max-width: 28%;
+          flex: 0 0 28%;
+          margin: 0 1.25%;
+          z-index: 1;
+        }
+        .col3 {
+          max-width: 100%;
+          flex: 0 0 100%;
+          margin: 0;
+          position: relative;
+        }
+        #smiley {
+          position: absolute;
+          height: 25%;
+          top: -8%;
+          right: -8%;
+          z-index: 20;
+        }
+        .col4 {
+          max-width: 10%;
+          flex: 0 0 10%;
+          margin: 0 1.25%;
+        }
+
+        .area-left {
+          display: flex;
+          align-items: center;
+          height: 100%;
+          width: calc((100vw - 840px)/2);
+          left: 0;
+          top: 0;
+          z-index: 2;
+        }
+        .left {
+          transform: rotate(-90deg);
+          font-size: 45pt;
+          margin: 0px 0px 0px -230px;
+          line-height: 1;
+          /*display: inline-block;*/
+        }
+
+        .area-right {
+          display: flex;
+          align-items: center;
+          height: 100%;
+          width: calc((100vw - 840px)/2);
+          right: 0;
+          top: 0;
+        }
+        .right {
+          transform: rotate(90deg);
+          font-size: 50pt;
+          margin: 0px 0px 0px -200px;
+          line-height: 1;
+          /*display: inline-block;*/
+        }
+
+        .row {
+          overflow: hidden;
+          justify-content: center;
+        }
+      }
+
+      @media(max-width: 768px) {
+         .col1, .middle .col2,.middle .col3, .col4 {
+          width: 100%;
+          padding: 15px;
+          box-sizing: border-box;
+        }
+
+        .col2 {
+          display: flex;
+          justify-content: center;
+          margin: auto;
+          width: 100%;
+        }
+
+      }
+    </style>
+  </head>
+
+  <body>
+    <main>
+        <div class="row">
+          <div class="col1">
+            <div class="area-left">
+              <div class="left">DON'T&nbsp;LAUGH</div>
+            </div>
+            <!--div class="canvas-window">
+              <p id="points">LOADING</p>
+              <div class="embed-responsive embed-responsive-16by9" id="canvas-container">
+                <div id="myCanvas" class="embed-responsive-item"></div>
+              </div>
+            </div-->
+          </div>
+        
+          <div class="middle">
+            <div class="start">
+              <p id="points">LOADING</p>
+            </div>
+            <div class="start">
+              <input id="start" type="button" onclick="start()" value="Start" />
+            </div>
+
+            <div class="middlecol">
+              <div class="col3">
+                <img id="smiley" src="neutral-smiley.png" />
+                <div class="embed-responsive embed-responsive-16by9">
+                  <div id="player" class="embed-responsive-item" ></div>
+                </div>
+              </div>
+              <div class="button_row">
+                <input type="button" onclick="player.loadVideoById('9vOv8Fy1BKg', 0, 'large')" value="Video 1"/>
+                <input type="button" onclick="player.loadVideoById('VB4CCHHYOqY', 0, 'large')" value="Video 2" />
+                <input type="button" onclick="player.loadVideoById('lYnhckZcllU', 0, 'large')" value="Video 3" />
+                <input type="text" onkeydown="searchUrl(this)" placeholder="URL"/>
+              </div>
+            </div>
+
+            
+
+          </div>
+          <div class="col4">
+            <div class="area-right">
+              <div class="right">CHALLENGE</div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <script type="application/javascript">
+        // 2. This code loads the IFrame Player API code asynchronously.
+        var tag = document.createElement('script');
+        var load = false;
+
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        // 3. This function creates an <iframe> (and YouTube player)
+        //    after the API code downloads.
+        var player;
+        function onYouTubeIframeAPIReady() {
+          player = new YT.Player('player', {
+            height: '315',
+            width: '560',
+            videoId: '9vOv8Fy1BKg',
+            events: {
+              'onReady': onPlayerReady,
+              'onStateChange': onPlayerStateChange
+            }
+          });
+        }
+
+        // 4. The API will call this function when the video player is ready.
+        function onPlayerReady(event) {
+        // event.target.playVideo();
+        }
+
+        function start() {
+          if (loaded) {
+            document.getElementById("points").innerText = "Points: 200";
+            player.playVideo();
+            console.log("start");
+            points = 200;
+          }
+        }
+        
+        function onPlayerStateChange(event) {
+          if (event.data == YT.PlayerState.PLAYING) {
+            //setTimeout(stopVideo, 6000);
+          }
+        }
+        function stopVideo() {
+          player.stopVideo();
+        }
+
+        //add submit on enter to Id-input-tag
+        function searchUrl(ele) {
+          if(event.key === 'Enter') {
+              let string = ele.value;
+              let pattern = 'watch?v=';
+              let substring = string.substr(string.indexOf(pattern) + pattern.length, string.length);
+              console.log(substring);
+              player.loadVideoById(substring, 0, 'large')
+          }
+        }
+      </script>
+  </body>
+</html>
